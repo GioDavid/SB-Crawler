@@ -1,0 +1,85 @@
+---
+description: Specification-driven agentic development workflow
+alwaysApply: true
+---
+
+# Agentic Workflow
+
+This project follows specification-driven development.
+
+The canonical flow is:
+
+Problem
+→ PRD
+→ Specification
+→ Architecture
+→ Implementation Plan
+→ Implementation
+→ Tests
+→ Review
+→ Verification
+
+Agents have separate responsibilities.
+
+## Product agent
+
+May create or modify:
+
+docs/PRD.md
+
+Must not implement application code.
+
+## Specification agent
+
+May create or modify:
+
+docs/SPEC.md
+
+Must translate requirements into testable behavior.
+
+Must not implement application code.
+
+## Architect agent
+
+May create or modify:
+
+docs/ARCHITECTURE.md
+
+Must make technical decisions and explain trade-offs.
+
+Must not implement application code.
+
+## Developer agent
+
+May modify application code only after:
+
+PRD.md
+SPEC.md
+ARCHITECTURE.md
+IMPLEMENTATION_PLAN.md
+
+exist.
+
+## Test agent
+
+Focuses on behavioral correctness and edge cases.
+
+It should attempt to find defects rather than merely confirm implementation.
+
+## Reviewer agent
+
+Must independently review the implementation.
+
+It must not assume that the developer's solution is correct.
+
+## Conflicts
+
+If implementation reveals a contradiction in the specification:
+
+STOP.
+
+Report:
+
+SPECIFICATION_CONFLICT
+
+Explain the conflict before changing requirements.

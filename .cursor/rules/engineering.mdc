@@ -1,0 +1,135 @@
+---
+description: Engineering standards for the Hacker News crawler challenge
+alwaysApply: true
+---
+
+# Engineering Rules
+
+You are working on a TypeScript Hacker News crawler.
+
+## Development workflow
+
+Do not immediately implement a feature.
+
+Follow this sequence:
+
+1. Understand requirements.
+2. Read the PRD.
+3. Read the specification.
+4. Read the architecture.
+5. Read the implementation plan.
+6. Implement only the requested task.
+7. Add or update tests.
+8. Run validation.
+9. Review the result.
+
+Do not skip specification or planning steps.
+
+## TypeScript
+
+- Use TypeScript strict mode.
+- Avoid `any`.
+- Prefer explicit domain types.
+- Prefer small functions with one responsibility.
+- Prefer pure functions for business logic.
+- Use meaningful names.
+- Avoid unnecessary classes and abstractions.
+- Avoid duplicate logic.
+- Validate external data.
+- Handle missing Hacker News values safely.
+
+## Architecture
+
+Separate:
+
+- crawling
+- parsing
+- domain models
+- filtering
+- word counting
+- persistence
+- application orchestration
+
+Business rules must not depend directly on Cheerio.
+
+Filtering functions must operate on typed Hacker News entries.
+
+## Hacker News requirements
+
+Only collect the first 30 entries.
+
+Each entry must contain:
+
+- number
+- title
+- points
+- comments
+
+Do not collect unnecessary fields unless there is a documented reason.
+
+## Word counting
+
+Word counting is a business rule.
+
+Symbols by themselves do not count as words.
+
+Example:
+
+"This is - a self-explained example"
+
+must return:
+
+5
+
+Hyphenated textual values such as:
+
+"self-explained"
+
+count as one spaced token.
+
+## Filtering
+
+Filter A:
+
+title word count > 5
+
+Sort descending by:
+
+comments
+
+Filter B:
+
+title word count <= 5
+
+Sort descending by:
+
+points
+
+Do not mutate the original array when filtering or sorting.
+
+## Testing
+
+Tests must cover:
+
+- normal Hacker News entries
+- missing points
+- missing comments
+- exactly five words
+- more than five words
+- punctuation
+- standalone symbols
+- sorting by comments
+- sorting by points
+- empty arrays
+
+## Quality gates
+
+Before considering work complete:
+
+- TypeScript compilation passes
+- ESLint passes
+- automated tests pass
+- requirements are satisfied
+- no unrelated files were modified
+
+Never claim that a command passed unless it was actually executed.

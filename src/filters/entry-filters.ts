@@ -1,5 +1,5 @@
-import type { HackerNewsEntry } from '../domain/hacker-news-entry.js';
-import { countWords } from './count-words.js';
+import type { HackerNewsEntry } from "../domain/hacker-news-entry.js";
+import { countWords } from "./count-words.js";
 
 export function filterLongTitles(
   entries: HackerNewsEntry[],

@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'vitest';
-import { parseHackerNewsEntries } from './hacker-news-parser.js';
+import { describe, expect, it } from "vitest";
+import { parseHackerNewsEntries } from "./hacker-news-parser.js";
 
-describe('parseHackerNewsEntries', () => {
+describe("parseHackerNewsEntries", () => {
   const hackerNewsHtml = `
     <table>
       <tr class="athing" id="1">
@@ -44,38 +44,36 @@ describe('parseHackerNewsEntries', () => {
     </table>
   `;
 
-  it('parses number', () => {
+  it("parses number", () => {
     const entries = parseHackerNewsEntries(hackerNewsHtml);
 
     expect(entries[0]?.number).toBe(1);
     expect(entries[1]?.number).toBe(2);
   });
 
-  it('parses title', () => {
+  it("parses title", () => {
     const entries = parseHackerNewsEntries(hackerNewsHtml);
 
-    expect(entries[0]?.title).toBe('Title one');
+    expect(entries[0]?.title).toBe("Title one");
 
-    expect(entries[1]?.title).toBe(
-      'Title two with a longer description',
-    );
+    expect(entries[1]?.title).toBe("Title two with a longer description");
   });
 
-  it('parses points', () => {
+  it("parses points", () => {
     const entries = parseHackerNewsEntries(hackerNewsHtml);
 
     expect(entries[0]?.points).toBe(10);
     expect(entries[1]?.points).toBe(100);
   });
 
-  it('parses comments', () => {
+  it("parses comments", () => {
     const entries = parseHackerNewsEntries(hackerNewsHtml);
 
     expect(entries[0]?.comments).toBe(5);
     expect(entries[1]?.comments).toBe(10);
   });
 
-  it('normalizes missing points to 0', () => {
+  it("normalizes missing points to 0", () => {
     const html = `
       <table>
         <tr class="athing">
@@ -102,7 +100,7 @@ describe('parseHackerNewsEntries', () => {
     expect(entries[0]?.points).toBe(0);
   });
 
-  it('normalizes discuss to 0 comments', () => {
+  it("normalizes discuss to 0 comments", () => {
     const html = `
       <table>
         <tr class="athing">
@@ -130,7 +128,7 @@ describe('parseHackerNewsEntries', () => {
     expect(entries[0]?.comments).toBe(0);
   });
 
-  it('returns no more than 30 entries', () => {
+  it("returns no more than 30 entries", () => {
     const rows = Array.from(
       { length: 31 },
       (_, index) => `
@@ -156,20 +154,16 @@ describe('parseHackerNewsEntries', () => {
           </td>
         </tr>
       `,
-    ).join('');
+    ).join("");
 
-    const entries = parseHackerNewsEntries(
-      `<table>${rows}</table>`,
-    );
+    const entries = parseHackerNewsEntries(`<table>${rows}</table>`);
 
     expect(entries).toHaveLength(30);
     expect(entries[0]?.number).toBe(1);
     expect(entries[29]?.number).toBe(30);
   });
 
-  it('returns an empty array for HTML without Hacker News entries', () => {
-    expect(
-      parseHackerNewsEntries('<html><body></body></html>'),
-    ).toEqual([]);
+  it("returns an empty array for HTML without Hacker News entries", () => {
+    expect(parseHackerNewsEntries("<html><body></body></html>")).toEqual([]);
   });
 });

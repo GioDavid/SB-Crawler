@@ -16,6 +16,7 @@ export function parseHackerNewsEntries(html: string): HackerNewsEntry[] {
       const title = row.find(".titleline > a").first().text().trim();
 
       const pointsText = subtextRow.find(".score").text().trim();
+      const age = subtextRow.find(".age").text().trim();
 
       const commentsText = subtextRow
         .find("a")
@@ -39,6 +40,7 @@ export function parseHackerNewsEntries(html: string): HackerNewsEntry[] {
         title,
         points,
         comments,
+        age,
       });
     });
 

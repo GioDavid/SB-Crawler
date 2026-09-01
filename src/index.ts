@@ -1,4 +1,4 @@
-import { runHackerNewsFilter } from "./application/hacker-news-service.js";
+import { runHackerNewsFilterSinglePage } from "./application/hacker-news-service.js";
 import type { FilterType } from "./domain/usage-record.js";
 
 const filter = process.argv[2] as FilterType | undefined;
@@ -17,7 +17,7 @@ if (!filter || !allowedFilters.includes(filter)) {
 }
 
 try {
-  const entries = await runHackerNewsFilter(filter);
+  const entries = await runHackerNewsFilterSinglePage(filter);
 
   console.log(JSON.stringify(entries, null, 2));
 } catch (error) {

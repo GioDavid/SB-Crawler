@@ -6,7 +6,7 @@ export function filterLongTitles(
 ): HackerNewsEntry[] {
   return entries
     .filter((entry) => countWords(entry.title) > 5)
-    .sort((a, b) => b.comments - a.comments);
+    .sort((a, b) => b.comments -a.comments);
 }
 
 export function filterShortTitles(
